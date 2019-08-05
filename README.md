@@ -1,2 +1,57 @@
 # jslib-scaffolding
-Project setup for typescript + babel + rollup + jest + circleci
+
+Scaffoling for setting up an open source libarary with the following stack
+
+* code in JS/TypeScript
+* Build with Rollup
+* Test with Jest
+* Publish to npm with CircleCI
+
+For the discussion below, assume that the code resides in the `src` folder and the entry point is `index.js`/`index.ts`.
+
+## package.json
+
+* Change the following fields `name`, `version`, `description`, `repository`, `author`, `license`, `bugs.url` and `homepage` as required
+* Change/remove [`main`](https://github.com/rollup/rollup/wiki/pkg.module) as per requirement.
+* Change/remove [`module`](https://github.com/rollup/rollup/wiki/pkg.module) as per requirement.
+* Change/remove [`browser`](https://github.com/rollup/rollup/wiki/pkg.module) as per requirement.
+* Run `npm install`
+* Add additional packages required by the library
+
+## Typescript
+
+* `types` in `package.json` should point to the types declaration file generated for the library.
+* Write code in `index.ts` in `src` folder
+* Change the `tsconfig.json` file as required
+* Change all `input` in `rollup.config.js` to `src/index.ts`
+
+## JavaScipt
+
+* Remove `types` and packages related to TypeScript from `devDependencies` in `package.json`
+* Remove `tsconfig.json`
+* Remove the entry `@babel/preset-typescript` from `.babelrc`
+* Write code in `index.js` in `src` folder
+* Remove `import typescript from 'rollup-plugin-typescript';` in `rollup.config.js`
+* Remove `typescript()` call from `plugins` in `rollup.config.js`
+* Change all `input` in `rollup.config.js` to `src/index.js`
+
+## Build
+
+`npm run build` will build the library
+
+## Tests
+
+* Write your tests in the `tests` directory as files ending in `.test.js`
+* Change the Jest config as required in `jest.config.js`
+* `npm test` will run the tests and print the results
+
+## Publish
+
+* Login into Circle CI and follow the github project where the library resides
+* Do `npm login` in local and extract the auth token from `${HOME}/.npmrc`
+* Create and environment variable in Circle CI under project settings in the name `npm_TOKEN` and paste the copied auth token as it's value
+* Change the node version in `.circleci/config.yml` if required
+
+Once all the above steps have been completed and the library is ready, commit to github.
+
+* The tests will be run in CircleCI 
