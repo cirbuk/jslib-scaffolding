@@ -54,4 +54,7 @@ For the discussion below, assume that the code resides in the `src` folder and t
 
 Once all the above steps have been completed and the library is ready, commit to github.
 
-* The tests will be run in CircleCI 
+* The tests will be run in CircleCI for every branch and tag
+* Publish to npm will happen whenever a commit is tagged with `v${versionNumber}`. 
+
+> Before tagging a commit for publish, make sure that the correct version number is updated in `package.json`
