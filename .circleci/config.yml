@@ -7,7 +7,6 @@ version: 2
 defaults: &defaults
   working_directory: ~/repo
   docker:
-    #Change node version here if required
     - image: circleci/node:10.16.0
 
 jobs:
@@ -22,10 +21,9 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      # Change to npm install if required
-      - run: yarn install
-
-      # Remove if there are no tests
+      - run:
+          name: Installing packages
+          command: yarn install
       - run:
           name: Run tests
           command: npm test
@@ -44,23 +42,23 @@ jobs:
       - attach_workspace:
           at: ~/repo
       - run:
+          name: Setup release directory
+          command: |
+            rm -rf __release__
+            mkdir __release__
+            npm run build
+            cp -r dist __release__/dist
+            cp README.md __release__
+            DIR=__release__ node scripts/prepare.js
+      - run:
           name: Authenticate with registry
-
-          # Do npm login
-          # Copy auth token from /${HOME}/.npmrc
-          # Go to settings for the project in CircleCI
-          # Create a new environment variable with the name "npm_TOKEN" and put copied auth token as the value
           command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/repo/.npmrc
       - run:
           name: Publish package
-          command: npm publish
+          command: "npm publish ./__release__"
 
 workflows:
   version: 2
-
-  #The workflow configuration below will run the test job on all branches and all tags and run the deploy job only when
-  # a commit is tagged with a version number and pushed. The tags section is using a regex to match tags that begin
-  # with a v, for example, v0.1.0.
   test-deploy:
     jobs:
       - test:
