@@ -35,6 +35,11 @@ For the discussion below, assume that the code resides in the `src` folder and t
 * Remove `typescript()` call from `plugins` in `rollup.config.js`
 * Change all `input` in `rollup.config.js` to `src/index.ts`
 
+> If you have other rollup built libraries as dependencies, and you use some named exports from those libraries,
+> these exports will have to be declared in your rollup.config.js as mentioned [here](https://github.com/rollup/rollup-plugin-commonjs#custom-named-exports).
+> If these dependencies are peer dependencies, you can mark them as [external](https://rollupjs.org/guide/en/#peer-dependencies) in your rollup.config.js and avoid having to 
+> declare all named imports. 
+
 ## Build
 
 `npm run build` will build the library
