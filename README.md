@@ -53,10 +53,11 @@ For the discussion below, assume that the code resides in the `src` folder and t
 ## Publish
 
 * Login into Circle CI and follow the github project where the library resides
-* Do `npm login` in local and extract the auth token from `${HOME}/.npmrc`
-* Create an environment variable `npm_TOKEN` in Circle CI under project settings and paste the copied auth token as it's value
-* Create an environment vairable `RELEASE_DIR`
 * Change the node version in `.circleci/config.yml` if required
+* Do `npm login` in local and extract the auth token from `${HOME}/.npmrc`
+* The token can be configured in 2 ways
+    * In the Circle CI organization settings, create a [context](https://circleci.com/docs/2.0/contexts/) named `npm` and add and environment variable named `npm_TOKEN` with the copied auth token as it's value. This is the default approach configured in `.circleci/config.yml`.
+    * Otherwise, create an environment variable `npm_TOKEN` in Circle CI under project settings and paste the copied auth token as it's value. Afterwards, delete the line `context: npm`(line 68) from `.circleci/config.yml` 
 
 Once all the above steps have been completed and the library is ready, commit to github.
 
