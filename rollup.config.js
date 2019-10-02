@@ -15,9 +15,7 @@ export default [
       //Change output library name
       name: 'library',
       file: pkg.browser,
-      format: 'umd',
-      interop: false,
-      sourcemap: true
+      format: 'umd'
     },
 
     plugins: [
