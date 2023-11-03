@@ -1,0 +1,149 @@
+{
+  "root": true,
+  "extends": [
+    "./eslint"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly",
+    "window": true
+  },
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/*.worker.js"
+      ],
+      "globals": {
+        "self": "readonly",
+        "postMessage": "readonly"
+      },
+      "rules": {
+        "no-restricted-globals": [
+          0
+        ]
+      }
+    },
+    {
+      "files": [
+        "**/*.ts"
+      ],
+      "parserOptions": {
+        "project": "./tsconfig.json",
+        "sourceType": "module"
+      },
+      "extends": [
+        "./eslint/typescript",
+        "./eslint/node"
+      ],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "warn",
+        "node/no-unsupported-features/es-syntax": "off",
+        "@typescript-eslint/explicit-function-return-type": "warn"
+      }
+    },
+    {
+      "files": [
+        "**/*.js"
+      ],
+      "parserOptions": {
+        "project": "./tsconfig.json",
+        "sourceType": "module"
+      },
+      "extends": [
+        "./eslint/node"
+      ],
+      "rules": {
+        "node/no-unsupported-features/es-syntax": "off"
+      },
+      "settings": {
+        "import/resolver": {
+          "node": {
+            "extensions": [
+              ".ts",
+              ".js",
+              ".json"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "files": [
+        "**/*.tsx"
+      ],
+      "parserOptions": {
+        "project": "./tsconfig.json",
+        "sourceType": "module"
+      },
+      "extends": [
+        "./eslint/typescript",
+        "./eslint/react"
+      ],
+      "rules": {
+        "react/destructuring-assignment": "warn",
+        "@typescript-eslint/no-explicit-any": "warn",
+        "jsx-a11y/click-events-have-key-events": "off",
+        "jsx-a11y/mouse-events-have-key-events": "off",
+        "node/no-unsupported-features/es-syntax": "off",
+        "react/no-array-index-key": "warn"
+      }
+    }
+  ],
+  "rules": {
+    "consistent-return": "off",
+    "import/no-anonymous-default-export": "off",
+    "import/no-dynamic-require": "off",
+    "global-require": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/mouse-events-have-key-events": "off",
+    "max-classes-per-file": "off",
+    "no-nested-ternary": "off",
+    "no-new": "off",
+    "no-plusplus": "off",
+    "no-process-exit": "off",
+    "no-restricted-globals": "off",
+    "node/exports-style": "off",
+    "import/no-import-module-exports": "off",
+    "import/no-named-default": "off",
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "warn",
+          "debug",
+          "error",
+          "info"
+        ]
+      }
+    ],
+    "no-unused-expressions": [
+      "error",
+      {
+        "allowShortCircuit": true,
+        "allowTernary": true
+      }
+    ],
+    "react-hooks/exhaustive-deps": [
+      "warn",
+      {
+        "additionalHooks": "useRecoilCallback"
+      }
+    ],
+    "react/no-array-index-key": "warn",
+    "no-shadow": "off"
+  },
+  "settings": {
+    "node": {
+      "tryExtensions": [
+        ".js",
+        ".json",
+        ".node",
+        ".ts",
+        ".tsx"
+      ]
+    }
+  }
+}
