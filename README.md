@@ -7,6 +7,13 @@ Scaffoling for setting up an open source libarary with the following stack
 * Test with Jest
 * Publish to npm with CircleCI
 
+## Getting Started
+
+Create a new directory and then run:
+```
+curl -fsSL https://github.com/cirbuk/jslib-scaffolding/archive/master.tar.gz | tar -xz --strip-components=1
+```
+
 For the discussion below, assume that the code resides in the `src` folder and the entry point is `index.ts`/`index.ts`.
 
 ## package.json
